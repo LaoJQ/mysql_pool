@@ -1,0 +1,8 @@
+[{<<"mysql">>,
+  {git,"https://github.com/mysql-otp/mysql-otp",
+       {ref,"8dd9c3b34e3d16a83fd68435f8f3f065cd48debd"}},
+  0},
+ {<<"poolboy">>,
+  {git,"https://github.com/devinus/poolboy",
+       {ref,"9212a8770edb149ee7ca0bca353855e215f7cba5"}},
+  0}].

@@ -1,0 +1,12 @@
+{application, mysql_pool,
+ [{description, "MySQL connection pool"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {mysql_pool_app, []}},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {env,[]},
+  {modules, []},
+ ]}.
