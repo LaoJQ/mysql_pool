@@ -1,27 +1,20 @@
 -module(mysql_pool).
 
 -export([
-         start/0,
-         init/4,
+         init/5,
          query/2
         ]).
 
-%% TODO: del mysql_pool app
-start() ->
-    application:start(mysql_pool).
-
-init(PoolId, PoolSize, MaxOverFlow, WorkerArgs) ->
+init(ParentSup, PoolId, PoolSize, MaxOverFlow, WorkerArgs) ->
     PoolArgs = [
                 {strategy, fifo},
                 {name, {local, PoolId}},
                 {worker_module, mysql_pool_proxy},
                 {size, PoolSize},
-                {max_overflow, MaxOverFlow},
-                {overflow_ttl, 0},
-                {overflow_check_period, 0}
+                {max_overflow, MaxOverFlow}
                ],
     ChildSpec = poolboy:child_spec(PoolId, PoolArgs, [mysql, WorkerArgs]),
-    case catch mysql_pool_sup:start_child(ChildSpec) of
+    case catch supervisor:start_child(ParentSup, ChildSpec) of
         {ok, _} ->
             ok;
         {error, {already_started, _Pid}} ->
